@@ -30,7 +30,7 @@ fn main() {
 
 // TODO: make Day trait
 fn execute(day: u8, part: u8, data: &str) {
-    match day {
+    let result = match day {
         1 => {
             if part == 1 {
                 day1::part1(data)
@@ -41,5 +41,7 @@ fn execute(day: u8, part: u8, data: &str) {
             }
         }
         _ => panic!("Solution for day {day}, part {part} not implemented yet."),
-    }
+    };
+
+    println!("Result: {result}");
 }
