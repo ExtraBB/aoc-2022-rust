@@ -10,5 +10,5 @@ aoc-lib = { path = "../aoc-lib" }
 criterion = { version = "0.4", features = ["html_reports"] }
 
 [[bench]]
-name = "day1_benchmark"
+name = "days_benchmark"
 harness = false

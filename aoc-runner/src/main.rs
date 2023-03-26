@@ -1,4 +1,4 @@
-use aoc_lib::day1;
+use aoc_lib::{day1, day2};
 use std::fs;
 
 fn main() {
@@ -29,16 +29,11 @@ fn main() {
 
 // TODO: make Day trait
 fn execute(day: u8, part: u8, data: &str) {
-    let result = match day {
-        1 => {
-            if part == 1 {
-                day1::part1(data)
-            } else if part == 2 {
-                day1::part2(data)
-            } else {
-                panic!("Part does not exist")
-            }
-        }
+    let result = match (day, part) {
+        (1, 1) => day1::part1(data),
+        (1, 2) => day1::part2(data),
+        (2, 1) => day2::part1(data),
+        (2, 2) => day2::part2(data),
         _ => panic!("Solution for day {day}, part {part} not implemented yet."),
     };
 
