@@ -1,13 +1,13 @@
 pub fn part1(data: &str) -> String {
-    let lines = data.split("\n");
-    let sum: u32 = lines.map(|line| get_score(line, true)).sum();
-
-    return sum.to_string();
+    return run(data, true);
 }
 
 pub fn part2(data: &str) -> String {
-    let lines = data.split("\n");
-    let sum: u32 = lines.map(|line| get_score(line, false)).sum();
+    return run(data, false);
+}
+
+fn run(data: &str, part1: bool) -> String {
+    let sum: u32 = data.split("\n").map(|line| get_score(line, part1)).sum();
     return sum.to_string();
 }
 
