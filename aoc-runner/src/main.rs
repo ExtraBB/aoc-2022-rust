@@ -22,7 +22,7 @@ fn main() {
         Err(_) => panic!("Invalid part provided"),
     };
 
-    let path = format!("../data/{}.in", args[1]);
+    let path = format!("data/{}.in", args[1]);
     let data = fs::read_to_string(path).expect("No data found for this day");
     execute(day, part, &data);
 }
