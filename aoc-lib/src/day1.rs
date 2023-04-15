@@ -24,3 +24,24 @@ fn parse_elves(data: &str) -> Vec<u64> {
         })
         .collect();
 }
+
+#[cfg(test)]
+mod day1tests {
+    use std::fs;
+
+    use crate::day1;
+
+    #[test]
+    fn test_part1() {
+        let data = fs::read_to_string("../data/1.in").unwrap();
+        let result = day1::part1(&data);
+        assert_eq!(result, "72478");
+    }
+
+    #[test]
+    fn test_part2() {
+        let data = fs::read_to_string("../data/1.in").unwrap();
+        let result = day1::part2(&data);
+        assert_eq!(result, "210367");
+    }
+}
