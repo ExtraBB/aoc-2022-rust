@@ -1,26 +1,59 @@
-pub fn part1(data: &str) -> String {
-    return run(data, true);
-}
+use std::collections::{HashMap, HashSet};
 
-fn run(data: &str, part1: bool) -> String {
+pub fn part1(data: &str) -> String {
     let sum: u32 = data
         .split("\n")
-        .map(|line| char_to_priority(find_duplicate(line)))
+        .map(|line| {
+            char_to_priority(find_duplicate(vec![
+                &line[..line.len() / 2],
+                &line[line.len() / 2..],
+            ]))
+        })
         .sum();
     return sum.to_string();
 }
 
-fn find_duplicate(line: &str) -> char {
-    let chars: Vec<char> = line.chars().collect();
-    let half = &chars[..chars.len() / 2];
-    for c in &chars[chars.len() / 2..] {
-        if half.contains(c) {
-            println!("{}", c);
-            return *c;
+pub fn part2(data: &str) -> String {
+    let lines: Vec<&str> = data.split("\n").collect();
+    let mut sum = 0;
+    for i in 0..lines.len() / 3 {
+        sum += char_to_priority(find_duplicate(vec![
+            lines[i * 3],
+            lines[i * 3 + 1],
+            lines[i * 3 + 2],
+        ]));
+    }
+
+    return sum.to_string();
+}
+
+fn find_duplicate(sets: Vec<&str>) -> char {
+    let mut map = HashMap::new();
+
+    for c in sets[0].chars() {
+        map.insert(c, 1);
+    }
+
+    for i in 1..sets.len() - 1 {
+        let mut seen = HashSet::new();
+        for c in sets[i].chars() {
+            if seen.contains(&c) {
+                continue;
+            }
+            seen.insert(c);
+            if map.contains_key(&c) {
+                map.insert(c, map[&c] + 1);
+            }
         }
     }
 
-    panic!("no duplicate in line");
+    for c in sets[sets.len() - 1].chars() {
+        if map.contains_key(&c) && map[&c] == sets.len() - 1 {
+            return c;
+        }
+    }
+
+    panic!("no duplicate")
 }
 
 fn char_to_priority(ch: char) -> u32 {
@@ -58,10 +91,10 @@ mod day3tests {
         assert_eq!(result, "7980");
     }
 
-    // #[test]
-    // fn test_part2() {
-    //     let data = fs::read_to_string("../data/3.in").unwrap();
-    //     let result = day3::part2(&data);
-    //     assert_eq!(result, "13889");
-    // }
+    #[test]
+    fn test_part2() {
+        let data = fs::read_to_string("../data/3.in").unwrap();
+        let result = day3::part2(&data);
+        assert_eq!(result, "2881");
+    }
 }
