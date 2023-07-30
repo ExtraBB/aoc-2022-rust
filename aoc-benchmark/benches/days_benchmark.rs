@@ -20,5 +20,5 @@ fn day3(c: &mut Criterion) {
     c.bench_function("Day 3, Part 2", |b| b.iter(|| day3::part2(&data)));
 }
 
-criterion_group!(benches, day1, day2);
+criterion_group!(benches, day1, day2, day3);
 criterion_main!(benches);
